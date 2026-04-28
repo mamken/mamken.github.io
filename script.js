@@ -104,9 +104,17 @@ function checkoutCart() {
     alert('Keranjang Anda kosong!');
     return;
   }
+
+  const customerName = document.getElementById('customerName').value.trim();
+  const customerClass = document.getElementById('customerClass').value.trim();
+
+  if (!customerName || !customerClass) {
+    alert('Mohon isi Nama dan Kelas Anda sebelum checkout.');
+    return;
+  }
   
   const waNumber = '6281515785838'; // Nomor WhatsApp dari footer
-  let message = `Halo MamKen, saya ingin memesan:\n\n`;
+  let message = `Halo MamKen, saya ingin memesan:\n\nNama: ${customerName}\nKelas: ${customerClass}\n\nPesanan:\n`;
   let grandTotal = 0;
   
   cart.forEach((item, index) => {
@@ -121,30 +129,14 @@ function checkoutCart() {
   
   // Kosongkan keranjang setelah diarahkan
   cart = [];
+  document.getElementById('customerName').value = '';
+  document.getElementById('customerClass').value = '';
   updateCartUI();
   closeCart();
   
   window.open(waLink, '_blank');
 }
 
-function sendToWhatsApp() {
-  // Ini untuk tombol Beli Langsung (Bypass Cart)
-  const qty = document.getElementById('quantity').value;
-  if (qty < 1) {
-    alert('Jumlah pesanan minimal 1');
-    return;
-  }
-  
-  const total = qty * currentPrice;
-  const waNumber = '6281515785838'; 
-  
-  const message = `Halo MamKen, saya ingin memesan:\n\nProduk: ${currentProduct}\nJumlah: ${qty} pcs\nTotal Harga: ${formatRupiah(total)}\n\nApakah bisa dikirim sekarang?`;
-  
-  const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
-  
-  window.open(waLink, '_blank');
-  closeModal();
-}
 
 // Menutup modal jika user mengklik di luar box putih (modal content)
 window.onclick = function(event) {

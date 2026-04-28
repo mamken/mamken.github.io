@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link rel="icon" type="image/svg+xml" href="logo.png">
+  <link rel="icon" type="image/png" href="logo.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Risol Mamken</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body><header>
-  <h1>Risol Mamken</h1>
+  <h1><img src="logo.png" alt="Logo" class="header-logo"> Risol Mamken</h1>
   <nav>
     <a href="#">Home</a>
     <a href="#menu">Menu</a>
@@ -62,7 +62,6 @@
     <p>Total Harga: <strong id="modalTotalPrice">Rp0</strong></p>
     <div class="btn-group">
       <button class="add-cart-btn" onclick="addToCart()">+ Keranjang</button>
-      <button class="btn whatsapp-btn" style="margin-top:0;" onclick="sendToWhatsApp()">Beli Langsung</button>
     </div>
   </div>
 </div>
@@ -72,6 +71,14 @@
   <div class="modal-content">
     <span class="close" onclick="closeCart()">&times;</span>
     <h2>Keranjang Belanja</h2>
+    <div class="input-group">
+      <label for="customerName">Nama:</label>
+      <input type="text" id="customerName" placeholder="Masukkan nama Anda">
+    </div>
+    <div class="input-group">
+      <label for="customerClass">Kelas:</label>
+      <input type="text" id="customerClass" placeholder="Masukkan kelas Anda">
+    </div>
     <div class="cart-items" id="cartItemsList">
       <!-- Item keranjang akan dirender di sini via JS -->
     </div>
