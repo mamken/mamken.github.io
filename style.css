@@ -114,6 +114,18 @@ nav a {
   color: white;
   border-radius: 8px;
   text-decoration: none;
+  transition: 0.3s;
+}
+
+.btn:hover:not(.disabled) {
+  background: #e66e00;
+  transform: translateY(-2px);
+}
+
+.btn.disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 footer {

@@ -4,8 +4,8 @@ let cart = [];
 
 const stocks = {
   'Risol Mayo': 20,
-  'Risol Matcha': 15,
-  'Risol Coklat': 10,
+  'Risol Matcha': 0,
+  'Risol Coklat': 0,
   'Risol Cookie and Cream': 12
 };
 
@@ -115,6 +115,7 @@ function updateCartUI() {
   }
 
   document.getElementById('cartGrandTotal').innerText = formatRupiah(grandTotal);
+  updateMenuButtons();
 }
 
 function removeFromCart(index) {
@@ -211,8 +212,36 @@ function updateVisitorStats() {
     });
 }
 
+function updateMenuButtons() {
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(card => {
+    const productName = card.querySelector('h3').innerText;
+    const stockElement = card.querySelector('.stock');
+    const btn = card.querySelector('.btn');
+    
+    const inCart = cart.find(item => item.product === productName)?.qty || 0;
+    const available = (stocks[productName] || 0) - inCart;
+    
+    stockElement.innerText = `Stok: ${available} pcs`;
+    
+    if (available <= 0) {
+      btn.classList.add('disabled');
+      btn.innerText = 'Habis';
+      btn.onclick = (e) => {
+        e.preventDefault();
+        return false;
+      };
+    } else {
+      btn.classList.remove('disabled');
+      btn.innerText = 'Pesan';
+      btn.onclick = null; // Let the HTML onclick work
+    }
+  });
+}
+
 // Jalankan saat halaman dimuat
 document.addEventListener('DOMContentLoaded', () => {
   updateVisitorStats();
   updateCartUI(); // Pastikan UI keranjang sinkron saat muat halaman
+  updateMenuButtons();
 });
