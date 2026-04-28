@@ -28,20 +28,28 @@
   <p>Cemilan favorit untuk semua suasana</p>
 </section><section class="menu" id="menu">
   <div class="card">
+    <img src="Risol mayo.jpeg" alt="Risol Mayo" class="card-img">
     <h3>Risol Mayo</h3>
     <p class="price">Rp2.500</p>
+    <p class="stock">Stok: 20 pcs</p>
     <a href="#" class="btn" onclick="openModal('Risol Mayo', 2500); return false;">Pesan</a>
   </div>  <div class="card">
+    <img src="Risol Matcha _ Risol Coklat _ Risol Mayo _ Risol Redvalvet _ Risol Ayam Suwir _ Risol Frozen pengiriman sameday.jpeg" alt="Risol Matcha" class="card-img">
     <h3>Risol Matcha</h3>
     <p class="price">Rp2.500</p>
+    <p class="stock">Stok: 15 pcs</p>
     <a href="#" class="btn" onclick="openModal('Risol Matcha', 2500); return false;">Pesan</a>
   </div>  <div class="card">
+    <img src="Risol Coklat & Matcha isi 5.png" alt="Risol Coklat" class="card-img">
     <h3>Risol Coklat</h3>
     <p class="price">Rp2.500</p>
+    <p class="stock">Stok: 10 pcs</p>
     <a href="#" class="btn" onclick="openModal('Risol Coklat', 2500); return false;">Pesan</a>
   </div>  <div class="card">
+    <img src="cnc.jpeg" alt="Risol Cookie and Cream" class="card-img">
     <h3>Risol Cookie and Cream</h3>
     <p class="price">Rp2.500</p>
+    <p class="stock">Stok: 12 pcs</p>
     <a href="#" class="btn" onclick="openModal('Risol Cookie and Cream', 2500); return false;">Pesan</a>
   </div>
 </section><footer id="contact">
@@ -58,6 +66,7 @@
     <div class="input-group">
       <label for="quantity">Jumlah Pesanan (pcs):</label>
       <input type="number" id="quantity" value="1" min="1" oninput="updateTotal()">
+      <small id="stockInfo" style="display: block; color: #888; margin-top: 5px;"></small>
     </div>
     <p>Total Harga: <strong id="modalTotalPrice">Rp0</strong></p>
     <div class="btn-group">

@@ -2,6 +2,13 @@ let currentProduct = '';
 let currentPrice = 0;
 let cart = [];
 
+const stocks = {
+  'Risol Mayo': 20,
+  'Risol Matcha': 15,
+  'Risol Coklat': 10,
+  'Risol Cookie and Cream': 12
+};
+
 // Format Rupiah
 const formatRupiah = (number) => 'Rp' + number.toLocaleString('id-ID');
 
@@ -10,7 +17,27 @@ function openModal(productName, price) {
   currentPrice = price;
   
   document.getElementById('modalProductName').innerText = productName;
-  document.getElementById('quantity').value = 1;
+  
+  const quantityInput = document.getElementById('quantity');
+  quantityInput.value = 1;
+  
+  // Set max quantity based on stock and current cart
+  const inCart = cart.find(item => item.product === productName)?.qty || 0;
+  const available = stocks[productName] - inCart;
+  quantityInput.max = available;
+  document.getElementById('stockInfo').innerText = `Tersedia: ${available} pcs`;
+  
+  if (available <= 0) {
+    quantityInput.value = 0;
+    quantityInput.disabled = true;
+    document.querySelector('.add-cart-btn').disabled = true;
+    document.querySelector('.add-cart-btn').innerText = 'Stok Habis';
+  } else {
+    quantityInput.disabled = false;
+    document.querySelector('.add-cart-btn').disabled = false;
+    document.querySelector('.add-cart-btn').innerText = '+ Keranjang';
+  }
+
   updateTotal();
   
   document.getElementById('orderModal').style.display = 'block';
@@ -33,8 +60,13 @@ function addToCart() {
     return;
   }
   
-  // Cek apakah item sudah ada di keranjang
   const existingItemIndex = cart.findIndex(item => item.product === currentProduct);
+  const inCart = existingItemIndex > -1 ? cart[existingItemIndex].qty : 0;
+  
+  if (inCart + qty > stocks[currentProduct]) {
+    alert(`Maaf, stok tidak mencukupi. Stok tersedia: ${stocks[currentProduct]}, di keranjang Anda: ${inCart}`);
+    return;
+  }
   if (existingItemIndex > -1) {
     cart[existingItemIndex].qty += qty;
   } else {
@@ -123,7 +155,7 @@ function checkoutCart() {
     message += `${index + 1}. ${item.product}\n   ${item.qty} pcs x ${formatRupiah(item.price)} = ${formatRupiah(itemTotal)}\n`;
   });
   
-  message += `\n*Total Keseluruhan: ${formatRupiah(grandTotal)}*\n\nApakah pesanan saya bisa dikirim sekarang?`;
+  message += `\n*Total Keseluruhan: ${formatRupiah(grandTotal)}*\n\n`;
   
   const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
   
